@@ -20,8 +20,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    private Long editUserId;
-
     @GetMapping("/")
     public String showSignUpForm() {
         return "login";
@@ -83,42 +81,10 @@ public class UserController {
         return "redirect:/admin";
     }
 
-    //    @GetMapping("/edit/{id}")
-//
-//    public String showUpdateForm(@PathVariable("id") long id, Model model) {
-//        model.addAttribute("user", userService.getById(id));
-//        return "update-user";
-//    }
-//
-//    @PostMapping("/update/{id}")
-//    public String updateUser(@ModelAttribute("user") User user,
-//                             @PathVariable("id") long id,
-//                             @RequestParam(required = false, name = "ADMIN") String ADMIN,
-//                             @RequestParam(required = false, name = "USER") String USER) {
-//
-//        Set<Role> roles = new HashSet<>();
-//        if (ADMIN != null) {
-//            roles.add(new Role(2L, ADMIN));
-//        }
-//        if (USER != null) {
-//            roles.add(new Role(1L, USER));
-//        }
-//        if (ADMIN == null && USER == null) {
-//            roles.add(new Role(1L, USER));
-//        }
-//        user.setRoles(roles);
-//        userService.update(user);
-//        return "redirect:/admin";
-//    }
-//
-
-
     @GetMapping("/edit/{id}")
 
-    public User showUpdateForm(@PathVariable("id") long id,Model model) {
-       User user = userService.getById(id);
-
-//       model.addAttribute("user", userService.getById(id));//user);
+    public User showUpdateForm(@PathVariable("id") long id) {
+        User user = userService.getById(id);
         return user;
     }
 
@@ -134,7 +100,7 @@ public class UserController {
         if (USER != null) {
             roles.add(new Role(1L, USER));
         }
-        if(ADMIN==null&&USER==null){
+        if (ADMIN == null && USER == null) {
             roles.add(new Role(1L, USER));
         }
         user.setRoles(roles);
