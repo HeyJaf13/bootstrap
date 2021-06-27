@@ -24,7 +24,7 @@
         </form>
     </div>
 </nav>
-<section>
+<!--<section>-->
     <div class="container-fluid">
         <div class="row">
             <!-- Left -->
@@ -85,7 +85,7 @@
                                         </td>
                                         <td>
                                             <a type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                               data-bs-target="#DELETE">
+                                               th:data-bs-target="${'#DELETE'+user.id}">
                                                 Delete
                                             </a>
                                         </td>
@@ -158,7 +158,7 @@
                                         </div>
                                         <!-- end Button edit modal-->
                                         <!-- Button delete modal -->
-                                        <div class="modal fade" id=DELETE tabindex="-1"
+                                        <div class="modal fade" th:id="${'DELETE'+user.id}" tabindex="-1"
                                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -170,8 +170,8 @@
                                                                 aria-label="Close"></button>
                                                     </div>
                                                     <form class="modal-body col-md text-center"
-                                                          th:action="@{/delete/{id}(id=${user.id})}"
-                                                          th:method="GET">
+                                                          th:action="@{{id}(id=${user.id})}"
+                                                          th:method="DELETE">
                                                         <div class="modal-body col-md">
                                                             <label for="id"><b>ID</b></label>
                                                             <input th:name="id" th:type="text" class="form-control"
@@ -235,7 +235,7 @@
             </div>
         </div>
     </div>
-</section>
+<!--</section>-->
 </body>
 </html>
 <!--  New User  -->

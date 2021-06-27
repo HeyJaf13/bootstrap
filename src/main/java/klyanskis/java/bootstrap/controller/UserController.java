@@ -108,7 +108,7 @@ public class UserController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("{id}")
     public String deleteUser(@PathVariable("id") long id, Model model) {
         userService.delete(userService.getById(id));
         model.addAttribute("users", userService.getAllUsers());
