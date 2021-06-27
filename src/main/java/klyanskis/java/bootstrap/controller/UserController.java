@@ -20,7 +20,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    private Long deleteUserId;
+    private Long editUserId;
 
     @GetMapping("/")
     public String showSignUpForm() {
@@ -110,11 +110,23 @@ public class UserController {
 //        userService.update(user);
 //        return "redirect:/admin";
 //    }
-    @PatchMapping("{id}")
-    public String update(@ModelAttribute("user") User user,
-                         @PathVariable("id") long id,
-                         @RequestParam(required = false, name = "ADMIN") String ADMIN,
-                         @RequestParam(required = false, name = "USER") String USER) {
+//
+
+
+    @GetMapping("/edit/{id}")
+
+    public User showUpdateForm(@PathVariable("id") long id,Model model) {
+       User user = userService.getById(id);
+
+//       model.addAttribute("user", userService.getById(id));//user);
+        return user;
+    }
+
+    @PostMapping("/edit")
+    public String updateUser(@ModelAttribute("user") User user,
+                             @RequestParam(required = false, name = "ADMIN") String ADMIN,
+                             @RequestParam(required = false, name = "USER") String USER) {
+
         Set<Role> roles = new HashSet<>();
         if (ADMIN != null) {
             roles.add(new Role(2L, ADMIN));
@@ -122,23 +134,13 @@ public class UserController {
         if (USER != null) {
             roles.add(new Role(1L, USER));
         }
-        if (ADMIN == null && USER == null) {
+        if(ADMIN==null&&USER==null){
             roles.add(new Role(1L, USER));
         }
         user.setRoles(roles);
         userService.update(user);
         return "redirect:/admin";
     }
-
-
-//    @DeleteMapping("{id}")
-//    public String delete(//@ModelAttribute("user") User user,
-//                         Model model,
-//                         @PathVariable("id") long id) {
-//        userService.delete(userService.getById(id));
-//        model.addAttribute("users", userService.getAllUsers());
-//        return "redirect:/admin";
-//    }
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") long id, Model model) {

@@ -80,11 +80,13 @@
                                         <!-- Button edit modal -->
                                         <td>
                                             <a type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
-                                               data-bs-target="#editModal">
+                                               data-bs-target="#editModal"
+                                            th:href="@{/edit/{id}(id=${user.id})}">
                                                 Edit
                                             </a>
 
                                             <!-- Modal -->
+
                                             <div class="modal fade" id="editModal" tabindex="-1"
                                                  aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
@@ -95,10 +97,9 @@
                                                                     data-bs-dismiss="modal"
                                                                     aria-label="Close"></button>
                                                         </div>
-                                                        <form class="form-container text-center"
-                                                              th:action="@{/{id}(id=${user.id})}"
-                                                              th:method="PATCH">
-                                                            <div class="mb-lg-auto">
+                                                        <form th:action="@{/edit}"th:object="${user}" th:method="POST">
+
+                                                            <div class="modal-body col-md text-center">
 
                                                                 <label for="id0"><b>ID</b></label>
                                                                 <input th:name="id" th:type="text" class="form-control"
@@ -110,7 +111,7 @@
                                                                        th:value="${user.name}"/>
                                                                 <br>
                                                                 <label for="surname0"><b>Last name</b></label>
-                                                                <input th:name="surName" th:type="text"
+                                                                <input th:name="lastname" th:type="text"
                                                                        class="form-control" id="surname0"
                                                                        th:value="${user.lastname}"/>
                                                                 <br>
@@ -120,7 +121,7 @@
                                                                        th:value="${user.age}"/>
                                                                 <br>
                                                                 <label for="username0"><b>E-mail</b></label>
-                                                                <input th:name="username" th:type="text"
+                                                                <input th:name="email" th:type="text"
                                                                        class="form-control" id="username0"
                                                                        th:value="${user.username}"/>
                                                                 <br>
@@ -129,6 +130,7 @@
                                                                        class="form-control" id="password0"
                                                                        th:value="${user.password}"/>
                                                                 <br>
+                                                                <label><b>Role</b></label>
                                                                 <input th:type="checkbox" th:id="2" th:name="ADMIN"
                                                                        th:value="ADMIN">
                                                                 <label th:for="ADMIN">Admin</label>
@@ -170,13 +172,13 @@
                                                                     data-bs-dismiss="modal"
                                                                     aria-label="Close"></button>
                                                         </div>
-                                                        <form class="form-container text-center"
+                                                        <form class="modal-body col-md text-center"
                                                               th:action="@{/delete/{id}(id=${user.id})}"
                                                               th:method="GET">
-                                                            <div class="mb-lg-auto">
-                                                                <label for="id1"><b>ID</b></label>
+                                                            <div class="modal-body col-md">
+                                                                <label for="id"><b>ID</b></label>
                                                                 <input th:name="id" th:type="text" class="form-control"
-                                                                       id="id1" th:value="${user.id}" disabled/>
+                                                                       id="id" th:value="${user.id}" disabled/>
                                                                 <br>
                                                                 <label for="name1"><b>First name</b></label>
                                                                 <input th:name="name" th:type="text"
@@ -207,7 +209,7 @@
 
                                                                        th:value="USER" disabled>
                                                                 <label th:for="USER">User</label>
-                                                                <br>
+                                                                <br><br>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
