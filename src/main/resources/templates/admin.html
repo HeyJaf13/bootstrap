@@ -79,7 +79,7 @@
                                         <td>
                                             <a type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
                                                data-bs-target="#editModal"
-                                               th:href="@{/edit/{id}(id=${user.id})}">
+                                               th:data-bs-target="${'#editModal'+user.id}">
                                                 Edit
                                             </a>
                                         </td>
@@ -91,7 +91,7 @@
                                         </td>
 
                                         <!-- Button edit modal -->
-                                        <div class="modal fade" id="editModal" tabindex="-1"
+                                        <div class="modal fade" th:id="${'editModal'+user.id}" tabindex="-1"
                                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
