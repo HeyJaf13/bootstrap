@@ -17,7 +17,7 @@
     <div class="container-fluid">
         <p class="navbar-brand text-white">
             <b><span th:text="${user.email}"></span></b> with roles:
-            <span th:text="${user.roles}"></span>
+            <span th:text="${user.getRoles()}"></span>
         </p>
         <form th:action="@{/logout}" method="post">
             <button type="submit" class="btn btn-dark text-secondary">Logout</button>
