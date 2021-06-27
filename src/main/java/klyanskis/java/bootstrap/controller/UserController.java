@@ -131,10 +131,17 @@ public class UserController {
     }
 
 
-    @DeleteMapping("{id}")
-    public String delete(//@ModelAttribute("user") User user,
-                         Model model,
-                         @PathVariable("id") long id) {
+//    @DeleteMapping("{id}")
+//    public String delete(//@ModelAttribute("user") User user,
+//                         Model model,
+//                         @PathVariable("id") long id) {
+//        userService.delete(userService.getById(id));
+//        model.addAttribute("users", userService.getAllUsers());
+//        return "redirect:/admin";
+//    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") long id, Model model) {
         userService.delete(userService.getById(id));
         model.addAttribute("users", userService.getAllUsers());
         return "redirect:/admin";
