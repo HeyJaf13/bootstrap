@@ -1,8 +1,10 @@
 package klyanskis.java.bootstrap.dao;
 
+import klyanskis.java.bootstrap.model.Role;
 import klyanskis.java.bootstrap.model.User;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserDao {
     List<User> getAllUsers();
@@ -11,4 +13,6 @@ public interface UserDao {
     void update(User user);
     User getById(long id);
     User getByName(String name);
+    Role getRole(String roleName);
+    Set<Role> getAll();
 }

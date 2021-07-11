@@ -1,6 +1,7 @@
 package klyanskis.java.bootstrap.service;
 
 import klyanskis.java.bootstrap.dao.UserDao;
+import klyanskis.java.bootstrap.model.Role;
 import klyanskis.java.bootstrap.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -46,6 +48,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User getByName(String name) {
         return userDao.getByName(name);
+    }
+
+    @Override
+    public Role getRoleByName(String name) {
+        return userDao.getRole(name);
+    }
+
+    @Override
+    public List<String> getAll() {
+        return userDao.getAll().stream().map(Role::getRole).collect(Collectors.toList());
     }
 
     @Override

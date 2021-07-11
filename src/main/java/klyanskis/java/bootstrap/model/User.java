@@ -1,5 +1,6 @@
 package klyanskis.java.bootstrap.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,35 +22,27 @@ public class User implements UserDetails {
     private String email;//unique
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles",joinColumns = @JoinColumn(name = "users_id"),inverseJoinColumns = @JoinColumn(name = "roles_id"))
-    private Set<Role> roles;
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"), inverseJoinColumns = @JoinColumn(name = "roles_id"))
 
-//    public String getRolesString() {
-//        StringBuilder sb = new StringBuilder();
-//
-//        for(Role role : roles) {
-//            sb.append(role.getRole().substring(5).concat(" "));
-//        }
-//        return sb.toString().trim();
-//    }
+    private Set<Role> roles;
 
     public User() {
     }
 
-    public User(String name, String lastname,int age,String email, String password, Set<Role> roles) {
+    public User(String name, String lastname, int age, String email, String password, Set<Role> roles) {
         this.name = name;
         this.lastname = lastname;
-        this.age=age;
+        this.age = age;
         this.email = email;
         this.password = password;
         this.roles = roles;
     }
 
-    public User(long id, String name, String lastname,int age, String email, String password, Set<Role> roles) {
+    public User(long id, String name, String lastname, int age, String email, String password, Set<Role> roles) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
-        this.age=age;
+        this.age = age;
         this.email = email;
         this.password = password;
         this.roles = roles;

@@ -41,77 +41,76 @@ public class UserController {
         modelAndView.addObject("user", user);
         return modelAndView;
     }
-
-    @GetMapping("/adduser")
-
-    public String adduser(Model model) {
-        User usera = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("usera", usera);
-        model.addAttribute("user", new User());
-        return "/adduser";
-    }
-
-    @PostMapping("/adduser")
-
-    public String saveUser(
-            @RequestParam("name") String name,
-            @RequestParam("lastname") String lastname,
-            @RequestParam("age") int age,
-            @RequestParam("email") String email,
-            @RequestParam("password") String password,
-            @RequestParam(required = false, name = "ADMIN") String ADMIN,
-            @RequestParam(required = false, name = "USER") String USER) {
-
-
-        Set<Role> roles = new HashSet<>();
-        if (ADMIN != null) {
-            roles.add(new Role(2L, ADMIN));
-        }
-        if (USER != null) {
-            roles.add(new Role(1L, USER));
-        }
-        if (ADMIN == null && USER == null) {
-            roles.add(new Role(1L, USER));
-        }
-
-        User user = new User(name, lastname, age, email, password, roles);
-
-        userService.add(user);
-
-        return "redirect:/admin";
-    }
-
-    @GetMapping("/edit/{id}")
-
-    public User showUpdateForm(@PathVariable("id") long id) {
-        User user = userService.getById(id);
-        return user;
-    }
-
-    @PostMapping("/edit")
-    public String updateUser(@ModelAttribute("user") User user,
-                             @RequestParam(required = false, name = "ADMIN") String ADMIN,
-                             @RequestParam(required = false, name = "USER") String USER) {
-
-        Set<Role> roles = new HashSet<>();
-        if (ADMIN != null) {
-            roles.add(new Role(2L, ADMIN));
-        }
-        if (USER != null) {
-            roles.add(new Role(1L, USER));
-        }
-        if (ADMIN == null && USER == null) {
-            roles.add(new Role(1L, USER));
-        }
-        user.setRoles(roles);
-        userService.update(user);
-        return "redirect:/admin";
-    }
-
-    @DeleteMapping("{id}")
-    public String deleteUser(@PathVariable("id") long id, Model model) {
-        userService.delete(userService.getById(id));
-        model.addAttribute("users", userService.getAllUsers());
-        return "redirect:/admin";
-    }
 }
+//    @GetMapping("/adduser")
+//
+//    public String adduser(Model model) {
+//        User usera = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        model.addAttribute("usera", usera);
+//        model.addAttribute("user", new User());
+//        return "/adduser";
+//    }
+
+//    @PostMapping("/adduser")
+//
+//    public String saveUser(
+//            @RequestParam("name") String name,
+//            @RequestParam("lastname") String lastname,
+//            @RequestParam("age") int age,
+//            @RequestParam("email") String email,
+//            @RequestParam("password") String password,
+//            @RequestParam(required = false, name = "ADMIN") String ADMIN,
+//            @RequestParam(required = false, name = "USER") String USER) {
+//
+//
+//        Set<Role> roles = new HashSet<>();
+//        if (ADMIN != null) {
+//            roles.add(new Role(2L, ADMIN));
+//        }
+//        if (USER != null) {
+//            roles.add(new Role(1L, USER));
+//        }
+//        if (ADMIN == null && USER == null) {
+//            roles.add(new Role(1L, USER));
+//        }
+//
+//        User user = new User(name, lastname, age, email, password, roles);
+//
+//        userService.add(user);
+//
+//        return "redirect:/admin";
+//    }
+//    @GetMapping("/edit/{id}")
+//
+//    public User showUpdateForm(@PathVariable("id") long id) {
+//        User user = userService.getById(id);
+//        return user;
+//    }
+//
+//    @PostMapping("/edit")
+//    public String updateUser(@ModelAttribute("user") User user,
+//                             @RequestParam(required = false, name = "ADMIN") String ADMIN,
+//                             @RequestParam(required = false, name = "USER") String USER) {
+//
+//        Set<Role> roles = new HashSet<>();
+//        if (ADMIN != null) {
+//            roles.add(new Role(2L, ADMIN));
+//        }
+//        if (USER != null) {
+//            roles.add(new Role(1L, USER));
+//        }
+//        if (ADMIN == null && USER == null) {
+//            roles.add(new Role(1L, USER));
+//        }
+//        user.setRoles(roles);
+//        userService.update(user);
+//        return "redirect:/admin";
+//    }
+
+//    @DeleteMapping("{id}")
+//    public String deleteUser(@PathVariable("id") long id, Model model) {
+//        userService.delete(userService.getById(id));
+//        model.addAttribute("users", userService.getAllUsers());
+//        return "redirect:/admin";
+//    }
+

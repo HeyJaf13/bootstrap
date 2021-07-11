@@ -1,5 +1,6 @@
 package klyanskis.java.bootstrap.dao;
 
+import klyanskis.java.bootstrap.model.Role;
 import klyanskis.java.bootstrap.model.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,7 +12,9 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -45,11 +48,6 @@ public class UserDaoImpl implements UserDao {
         entityManager.merge(user);
     }
 
-//    @Override
-//    public void update(User user) {
-//        entityManager.merge(user);
-//    }
-
     @Override
     public User getById(long id) {
         return entityManager.find(User.class, id);
@@ -58,6 +56,20 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getByName(String name) {
         return entityManager.createQuery("select u from User u where u.email= :name", User.class).setParameter("name", name).getSingleResult();
+    }
+
+    @Override
+    public Role getRole(String roleName) {
+        return entityManager.createQuery("SELECT r FROM Role r WHERE r.role = :roleName", Role.class)
+                .setParameter("roleName", roleName)
+                .getSingleResult();
+    }
+
+    @Override
+    public Set<Role> getAll() {
+        List<Role> rolesList =
+                entityManager.createQuery("SELECT r FROM Role r", Role.class).getResultList();
+        return new HashSet<>(rolesList);
     }
 
     public UserDaoImpl() {
